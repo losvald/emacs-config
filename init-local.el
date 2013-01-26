@@ -1,1 +1,1 @@
-(load "~/.emacs.d/init-auctex")
+(setq x-select-enable-clipboard t)
