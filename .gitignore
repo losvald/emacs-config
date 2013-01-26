@@ -1,0 +1,10 @@
+*~
+\#*\#
+
+*.elc
+
+/*
+!.gitignore
+!init.el
+!init-*.el
+!site-lisp/
