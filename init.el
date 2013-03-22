@@ -17,6 +17,15 @@
 (global-auto-revert-mode 1)
 ; always end a file with a newline
 (setq require-final-newline 'query)
+; delete trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+; jump to the beginning of matched string in I-search when C-v is pressed
+(define-key isearch-mode-map (kbd "C-v") 'my-isearch-forward-to-beginning)
+    (defun my-isearch-forward-to-beginning ()
+      "Do a forward search and jump to the beginning of the search-term."
+      (interactive)
+      (isearch-repeat 'forward)
+      (goto-char isearch-other-end))
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'reverse)
