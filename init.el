@@ -1,6 +1,9 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (load "~/.emacs.d/init-local")
 (load "~/.emacs.d/init-ac")
+; use a separate file for Customize
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
 
 ;; Key bindings
 (global-set-key "\C-x\C-m" 'execute-extended-command)
