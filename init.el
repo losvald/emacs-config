@@ -48,6 +48,9 @@
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
+;; Dot / Graphviz
+(load-file "~/.emacs.d/site-lisp/graphviz-dot-mode.el")
+
 ;; Octave / Matlab
 (setq auto-mode-alist
       (cons
