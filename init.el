@@ -5,6 +5,8 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
+(setq inhibit-splash-screen t)
+
 ;; Key bindings
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
@@ -43,6 +45,10 @@
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+(defun my/bindkey-recompile ()
+  "Bind C-c C-c to `recompile'."
+  (local-set-key (kbd "C-c C-c") 'recompile))
+(add-hook 'c-mode-common-hook 'my/bindkey-recompile)
 
 ;; Shell
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
