@@ -1,5 +1,7 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (load "~/.emacs.d/init-local")
+(load "~/.emacs.d/init-ui.el")
+(load "~/.emacs.d/init-spell.el")
 (load "~/.emacs.d/init-ac")
 ; use a separate file for Customize
 (setq custom-file "~/.emacs.d/custom.el")
@@ -43,6 +45,10 @@
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+(defun my/bindkey-recompile ()
+  "Bind C-c C-c to `recompile'."
+  (local-set-key (kbd "C-c C-c") 'recompile))
+(add-hook 'c-mode-common-hook 'my/bindkey-recompile)
 
 ;; Shell
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
@@ -56,3 +62,29 @@
       (cons
        '("\\.m$" . octave-mode)
        auto-mode-alist))
+
+;; Python
+
+(require 'python)
+
+; Python indentation
+(defadvice python-calculate-indentation (around outdent-closing-brackets)
+  "Handle lines beginning with a closing bracket and indent them so that
+  they line up with the line containing the corresponding opening bracket."
+(save-excursion
+  (beginning-of-line)
+  (let ((syntax (syntax-ppss)))
+    (if (and (not (eq 'string (syntax-ppss-context syntax)))
+             (python-continuation-line-p)
+             (cadr syntax)
+             (skip-syntax-forward "-")
+             (looking-at "\\s)"))
+        (progn
+          (forward-char 1)
+          (ignore-errors (backward-sexp))
+          (setq ad-return-value (current-indentation)))
+      ad-do-it))))
+
+(add-hook 'python-mode-hook
+    (lambda ()
+        (ad-activate 'python-calculate-indentation)))
