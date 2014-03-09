@@ -2,6 +2,7 @@
 (load "~/.emacs.d/init-local")
 (load "~/.emacs.d/init-ui.el")
 (load "~/.emacs.d/init-spell.el")
+(load "~/.emacs.d/init-yas") ;; should be loaded before ac
 (load "~/.emacs.d/init-ac")
 ; use a separate file for Customize
 (setq custom-file "~/.emacs.d/custom.el")
