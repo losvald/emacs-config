@@ -22,6 +22,7 @@
 ; enable auto revert (reload)
 (global-auto-revert-mode 1)
 ; always end a file with a newline
+
 (setq require-final-newline 'query)
 ; delete trailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)

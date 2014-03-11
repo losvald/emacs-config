@@ -1,10 +1,27 @@
 (when (version<= emacs-version "24.2")
     (require 'cl-lib))
+
+(defun camelize (s)
+  "Convert under_score string S to CamelCase string."
+  (interactive "P")
+  (mapconcat 'identity (mapcar
+			'(lambda (word) (if (or (> (length word) 2)
+						(member word '("go" "or")))
+					    (capitalize (downcase word))
+					  (upcase word)))
+			(split-string s "_")) ""))
+
 (require 'yasnippet "../yasnippet")
 (yas-global-mode 1)
 (define-key yas-minor-mode-map [(tab)] nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
+(define-key yas-keymap (kbd "C-c C-n") 'yas-next-field)
+(define-key yas-keymap (kbd "C-c C-p") 'yas-prev-field)
 (setq yas-trigger-key nil)
+(define-key yas-minor-mode-map (kbd "C-c C-SPC") 'yas-expand)
 (define-key yas-minor-mode-map (kbd "C-c SPC") 'yas-expand)
 (define-key yas-minor-mode-map (kbd "C-c s") 'yas-insert-snippet)
 (setq yas-prompt-functions '(yas-completing-prompt yas-no-prompt))
+
+(setq auto-mode-alist
+      (cons '("~/.emacs.d/snippets/*" . snippet-mode) auto-mode-alist))
