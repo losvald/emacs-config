@@ -15,8 +15,16 @@
 (yas-global-mode 1)
 (define-key yas-minor-mode-map [(tab)] nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-keymap (kbd "C-c C-n") 'yas-next-field)
-(define-key yas-keymap (kbd "C-c C-p") 'yas-prev-field)
+(define-key yas-minor-mode-map (kbd "C-c C-n")
+  '(lambda()
+     (interactive)
+     (if (equal major-mode 'coq-mode)	; resolve conflicts in coq-mode
+	 (if (and yas--active-field-overlay
+		  (overlay-buffer yas--active-field-overlay))
+	     (yas-next-field)
+	   (proof-assert-next-command-interactive))
+       (yas-next-field))))
+(define-key yas-minor-mode-map (kbd "C-c C-p") 'yas-prev-field)
 (setq yas-trigger-key nil)
 (define-key yas-minor-mode-map (kbd "C-c C-SPC") 'yas-expand)
 (define-key yas-minor-mode-map (kbd "C-c SPC") 'yas-expand)

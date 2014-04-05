@@ -9,4 +9,4 @@
 !init.el
 !init-*.el
 !site-lisp/
-+!yasnippet.el
+!yasnippet.el
