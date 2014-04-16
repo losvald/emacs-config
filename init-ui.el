@@ -30,8 +30,52 @@
        (error
 	(error "Cannot resize window or frame horizontally"))))))
 
+;; Printing to PDF
+
+(defun harden-newlines ()
+  (interactive)
+  "Make all the newlines in the buffer hard."
+  (save-excursion
+    (goto-char (point-min))
+    (while (search-forward "\n" nil t)
+      (backward-char)
+      (put-text-property (point) (1+ (point)) 'hard t)
+      (forward-char))))
+
+(defun spool-buffer-given-name (name)
+  (load "ps-print")
+  (let ((tmp ps-left-header))
+    (unwind-protect
+        (progn
+          (setq ps-left-header
+                (list (lambda () name) 'ps-header-dirpart))
+          (ps-spool-buffer-with-faces))
+      (setf ps-left-header tmp))))
+
+(defun print-to-pdf ()
+  "Print the current file to /tmp/print.pdf"
+  (interactive)
+  (let ((wbuf (generate-new-buffer "*Wrapped*"))
+        (sbuf (current-buffer)))
+    (jit-lock-fontify-now)
+    (save-current-buffer
+      (set-buffer wbuf)
+      (insert-buffer sbuf)
+      (longlines-mode t)
+      (harden-newlines)
+      (spool-buffer-given-name (buffer-name sbuf))
+      (kill-buffer wbuf)
+      (switch-to-buffer "*PostScript*")
+      (write-file "/tmp/print.ps")
+      (kill-buffer (current-buffer)))
+    (call-process "ps2pdf14" nil nil nil
+                  "/tmp/print.ps" "/tmp/print.pdf")
+    (delete-file "/tmp/print.ps")
+    (message "PDF saved to /tmp/print.pdf")))
+
 ;; Key bindings
 (global-set-key (kbd "s-x") 'clipboard-kill-region)
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
 (global-set-key (kbd "s-v") 'x-clipboard-yank)
+(global-set-key (kbd "C-c 3") 'fix-horizontal-size)
 (global-set-key (kbd "C-c 3") 'fix-horizontal-size)
