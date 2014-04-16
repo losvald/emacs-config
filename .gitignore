@@ -4,9 +4,12 @@
 *.elc
 
 /*
-!/snippets/
+!/on-demand/
+!/site-lisp/
 !.gitignore
 !init.el
 !init-*.el
-!site-lisp/
+
+# YASnippet snippets
+!/snippets/
 !yasnippet.el
