@@ -28,7 +28,8 @@
 (setq yas-trigger-key nil)
 (define-key yas-minor-mode-map (kbd "C-c C-SPC") 'yas-expand)
 (define-key yas-minor-mode-map (kbd "C-c SPC") 'yas-expand)
-(define-key yas-minor-mode-map (kbd "C-c s") 'yas-insert-snippet)
+(define-key yas-minor-mode-map (kbd "C-c C-i") 'yas-insert-snippet)
+(define-key yas-minor-mode-map (kbd "C-c i") 'yas-insert-snippet)
 (setq yas-prompt-functions '(yas-completing-prompt yas-no-prompt))
 
 (setq auto-mode-alist
