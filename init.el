@@ -50,7 +50,11 @@
 (defun my/bindkey-recompile ()
   "Bind C-c C-c to `recompile'."
   (local-set-key (kbd "C-c C-c") 'recompile))
-(add-hook 'c-mode-common-hook 'my/bindkey-recompile)
+(add-hook 'c-mode-common-hook
+	  (lambda()
+	    (my/bindkey-recompile)
+	    (c-set-offset 'inextern-lang 0)  ; don't indent "extern" blocks
+	    ))
 
 ;; Shell
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
