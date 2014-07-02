@@ -7,6 +7,21 @@
   (setq inhibit-startup-screen t)
 )
 
+;; Exit
+
+(defun ask-before-closing ()
+  "Ask whether or not to close, and then close if y was pressed"
+  (interactive)
+  (if (y-or-n-p (format "Are you sure you want to exit Emacs? "))
+      (if (< emacs-major-version 22)
+          (save-buffers-kill-terminal)
+        (save-buffers-kill-emacs))
+    (message "Canceled exit")))
+
+(when window-system (global-set-key (kbd "C-x C-c") 'ask-before-closing))
+
+;; Frame/Window management
+
 (defun fix-frame-horizontal-size (width)
   "Set the frame's size to 80 (or prefix arg WIDTH) columns wide."
   (interactive "P")
@@ -78,4 +93,25 @@
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
 (global-set-key (kbd "s-v") 'x-clipboard-yank)
 (global-set-key (kbd "C-c 3") 'fix-horizontal-size)
-(global-set-key (kbd "C-c 3") 'fix-horizontal-size)
+(global-set-key (kbd "C-c 4")
+		(lambda ()
+		  (interactive)
+		  (fix-horizontal-size 164)))
+(global-set-key (kbd "C-c =")
+		(lambda ()
+		  (interactive)
+		  (set-face-attribute 'default nil :height 128)))
+(global-set-key (kbd "C-c 0")
+		(lambda ()
+		  (interactive)
+		  (set-face-attribute 'default nil :height 104)))
+(global-set-key (kbd "C-c -")
+		(lambda ()
+		  (interactive)
+		  (set-face-attribute 'default nil :height
+				      (- (face-attribute 'default :height) 8))))
+(global-set-key (kbd "C-c +")
+		(lambda ()
+		  (interactive)
+		  (set-face-attribute 'default nil :height
+				      (+ (face-attribute 'default :height) 8))))
