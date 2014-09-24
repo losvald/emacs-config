@@ -33,4 +33,5 @@
 (setq yas-prompt-functions '(yas-completing-prompt yas-no-prompt))
 
 (setq auto-mode-alist
-      (cons '("~/.emacs.d/snippets/*" . snippet-mode) auto-mode-alist))
+      (cons '("~/.emacs.d/snippets/*" . lisp-interaction-mode)
+	    auto-mode-alist))
