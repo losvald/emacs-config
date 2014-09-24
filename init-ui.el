@@ -45,6 +45,9 @@
        (error
 	(error "Cannot resize window or frame horizontally"))))))
 
+;; Display column numbers
+(setq column-number-mode t)
+
 ;; Printing to PDF
 
 (defun harden-newlines ()
