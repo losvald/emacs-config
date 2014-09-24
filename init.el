@@ -126,6 +126,17 @@
         (setq python-indent 4)
         (ad-activate 'python-calculate-indentation)))
 
+;; R
+(autoload 'R-mode "ess-site.el" "" t)
+(add-to-list 'auto-mode-alist '("\\.R\\'" . R-mode))
+(add-hook 'inferior-ess-mode-hook
+	  (lambda ()
+	    ;; resolve key binding conflicts (C-c C-n is yas-next-field)
+	    (define-key ess-mode-map (kbd "C-c C-m") 'ess-eval-line-and-step)
+	    ;; start emacs server (needed for edit, fix)
+	    (require 'server)
+	    (unless (server-running-p) (server-start))))
+
 ;; Scala
 (add-hook 'scala-mode-hook
 	  (lambda()
