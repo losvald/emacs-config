@@ -1,17 +1,14 @@
+;; Bootstrap
 (when (version<= emacs-version "24.2")
     (require 'cl-lib))
+(defvar yas/el-path (concat (file-name-as-directory "..") "yasnippet"))
+(defvar yas/snippets-root (concat (file-name-directory yas/el-path)
+				  "snippets"))  ; relative to yasnippet.el
 
-(defun camelize (s)
-  "Convert under_score string S to CamelCase string."
-  (interactive "P")
-  (mapconcat 'identity (mapcar
-			'(lambda (word) (if (or (> (length word) 2)
-						(member word '("go" "or")))
-					    (capitalize (downcase word))
-					  (upcase word)))
-			(split-string s "_")) ""))
+(require 'yasnippet yas/el-path)
+(load (concat (file-name-as-directory yas/snippets-root) "functions.el"))
 
-(require 'yasnippet "../yasnippet")
+;; Yasnippet configuration
 (yas-global-mode 1)
 (define-key yas-minor-mode-map [(tab)] nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
@@ -31,7 +28,3 @@
 (define-key yas-minor-mode-map (kbd "C-c C-i") 'yas-insert-snippet)
 (define-key yas-minor-mode-map (kbd "C-c i") 'yas-insert-snippet)
 (setq yas-prompt-functions '(yas-completing-prompt yas-no-prompt))
-
-(setq auto-mode-alist
-      (cons '("~/.emacs.d/snippets/*" . lisp-interaction-mode)
-	    auto-mode-alist))
