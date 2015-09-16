@@ -138,6 +138,7 @@
 
 (add-hook 'python-mode-hook
     (lambda ()
+        (my/bindkey-recompile)
         (setq indent-tabs-mode nil)
         (setq tab-width 4)
         (setq python-indent 4)
@@ -157,9 +158,10 @@
 ;; Scala
 (add-hook 'scala-mode-hook
 	  (lambda()
-	    ;; (local-set-key (kbd "C-c C-c") 'sbt-run-previous-command)))
 	    (define-key scala-mode-map
-	      (kbd "C-c C-c") (lambda () (interactive) (sbt-run-previous-command)))
+	      (kbd "C-c C-c") (lambda ()
+				(interactive)
+				(sbt-run-previous-command)))
 	    (define-key scala-mode-map
 	      (kbd "C-c C-t") (lambda () (interactive) (sbt-command "test")))
 	    (define-key scala-mode-map
