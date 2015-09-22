@@ -8,6 +8,10 @@
 (require 'yasnippet yas/el-path)
 (load (concat (file-name-as-directory yas/snippets-root) "functions.el"))
 
+(setq auto-mode-alist
+      (cons '("[/\\\\]snippets[/\\\\].*-mode[/\\\\]" . snippet-mode)
+	    auto-mode-alist))
+
 ;; Yasnippet configuration
 (yas-global-mode 1)
 (define-key yas-minor-mode-map (kbd "C-c Y") 'yas-reload-all)
