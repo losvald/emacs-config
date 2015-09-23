@@ -20,7 +20,13 @@
 
 (when window-system (global-set-key (kbd "C-x C-c") 'ask-before-closing))
 
-;; Frame/Window management
+;; Frame/Window configuration
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'reverse)
+(setq uniquify-separator "/")
+(setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
+(setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
 (defun fix-frame-horizontal-size (width)
   "Set the frame's size to 80 (or prefix arg WIDTH) columns wide."
@@ -47,6 +53,14 @@
 
 ;; Display column numbers
 (setq column-number-mode t)
+
+;; Display in frame title:
+;;   <buffer_name> : ( <full_file_path> | \[<buffer_size>\] <process_status> )
+(setq frame-title-format
+      '("%b : "
+	(:eval (if buffer-file-name
+		   (file-truename buffer-file-name)
+		 "[%I] %s"))))
 
 ;; Printing to PDF
 

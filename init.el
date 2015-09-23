@@ -1,6 +1,7 @@
+(load "~/.emacs.d/init-ui.el") ; init-ui must have has no dependencies
+
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (load "~/.emacs.d/init-local")
-(load "~/.emacs.d/init-ui.el")
 (load "~/.emacs.d/init-spell.el")
 (load "~/.emacs.d/init-yas") ;; should be loaded before ac
 (load "~/.emacs.d/init-ac")
@@ -43,12 +44,6 @@
       (interactive)
       (isearch-repeat 'forward)
       (goto-char isearch-other-end))
-
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'reverse)
-(setq uniquify-separator "/")
-(setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
-(setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
 (require 'unbound)
 
