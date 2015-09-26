@@ -62,6 +62,9 @@
 		   (file-truename buffer-file-name)
 		 "[%I] %s"))))
 
+;; Hide toolbar
+(tool-bar-mode -1)
+
 ;; Printing to PDF
 
 (defun harden-newlines ()
