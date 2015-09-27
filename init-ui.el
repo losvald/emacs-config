@@ -108,6 +108,19 @@
     (delete-file "/tmp/print.ps")
     (message "PDF saved to /tmp/print.pdf")))
 
+;; TODO: not personally tested, but supposedly a good thing
+;; Fix scrolling when vc-annotate
+;; (defadvice vc-annotate (around vc-annotate-and-scroll)
+;;   "scroll buffer to view current line in the annotated buffer"
+;;   (let ((pos (count-lines (point-min) (point))))
+;;     ad-do-it
+;;     (let ((orig-window (selected-window))
+;;           (window (other-window-for-scrolling)))
+;;       (select-window window)
+;;       (goto-line pos)
+;;       (select-window orig-window))))
+;; (ad-activate 'vc-annotate)
+
 ;; Key bindings
 (global-set-key (kbd "s-x") 'clipboard-kill-region)
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
