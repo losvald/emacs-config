@@ -96,6 +96,9 @@
 ;; Dot / Graphviz
 (load-file "~/.emacs.d/site-lisp/graphviz-dot-mode.el")
 
+;; JavaScript
+(add-hook 'js2-mode-hook 'ac-js2-mode)
+
 ;; Markdown mode
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
@@ -161,6 +164,9 @@
 	      (kbd "C-c C-t") (lambda () (interactive) (sbt-command "test")))
 	    (define-key scala-mode-map
 	      (kbd "C-c C-r") (lambda () (interactive) (sbt-command "run")))))
+
+;; SQL
+(eval-after-load "sql" '(load-library "sql-indent"))
 
 ;; Valgrind
 ;; (defun valgrind ()
