@@ -1,5 +1,11 @@
 (load "~/.emacs.d/init-ui.el") ; init-ui must have has no dependencies
 
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (add-to-list 'package-archives
+	       '("melpa" . "https://stable.melpa.org/packages/"))
+  (package-initialize))
+
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (load "~/.emacs.d/init-local")
 (load "~/.emacs.d/init-spell.el")
@@ -8,11 +14,6 @@
 ; use a separate file for Customize
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
-
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (add-to-list 'package-archives
-	       '("melpa" . "https://melpa.org/packages/")))
 
 (defun reload-dotemacs ()
   (interactive)
