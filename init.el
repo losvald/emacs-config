@@ -165,6 +165,8 @@
 	      (kbd "C-c C-t") (lambda () (interactive) (sbt-command "test")))
 	    (define-key scala-mode-map
 	      (kbd "C-c C-r") (lambda () (interactive) (sbt-command "run")))))
+(add-to-list 'display-buffer-alist	; reuse SBT compilation window
+	     '("^\\*sbt\\*" display-buffer-reuse-window (reusable-frames . t)))
 
 ;; SQL
 (eval-after-load "sql" '(load-library "sql-indent"))
