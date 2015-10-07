@@ -125,6 +125,7 @@
 (global-set-key (kbd "s-x") 'clipboard-kill-region)
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
 (global-set-key (kbd "s-v") 'x-clipboard-yank)
+(global-set-key (kbd "s-o") 'other-frame)
 (global-set-key (kbd "C-c 3") 'fix-horizontal-size)
 (global-set-key (kbd "C-c 4")
 		(lambda ()
