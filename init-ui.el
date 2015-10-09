@@ -108,6 +108,9 @@
     (delete-file "/tmp/print.ps")
     (message "PDF saved to /tmp/print.pdf")))
 
+;; Use image+ mode if installed
+(eval-after-load 'image '(require 'image+ nil 'noerror))
+
 ;; TODO: not personally tested, but supposedly a good thing
 ;; Fix scrolling when vc-annotate
 ;; (defadvice vc-annotate (around vc-annotate-and-scroll)
