@@ -162,6 +162,8 @@
 				(interactive)
 				(sbt-run-previous-command)))
 	    (define-key scala-mode-map
+	      (kbd "C-c C-M-c") (lambda () (interactive) (sbt-command "clean")))
+	    (define-key scala-mode-map
 	      (kbd "C-c C-t") (lambda () (interactive) (sbt-command "test")))
 	    (define-key scala-mode-map
 	      (kbd "C-c C-r") (lambda () (interactive) (sbt-command "run")))))
