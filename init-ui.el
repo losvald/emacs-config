@@ -65,6 +65,9 @@
 ;; Hide toolbar
 (tool-bar-mode -1)
 
+;; Locale
+(setenv "LC_COLLATE" "C") 		; fix weird sorting order
+
 ;; Printing to PDF
 
 (defun harden-newlines ()
