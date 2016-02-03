@@ -30,6 +30,10 @@
 (global-set-key (kbd "<C-tab>") 'next-buffer)
 (global-set-key (kbd "<C-S-iso-lefttab>") 'next-buffer)
 
+(defun my/bindkey-recompile ()
+  "Bind C-c C-c to `recompile'."
+  (local-set-key (kbd "C-c C-c") 'recompile))
+
 ;; Core settings
 ; enable auto revert (reload)
 (global-auto-revert-mode 1)
@@ -53,9 +57,6 @@
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
-(defun my/bindkey-recompile ()
-  "Bind C-c C-c to `recompile'."
-  (local-set-key (kbd "C-c C-c") 'recompile))
 (add-hook 'c-mode-common-hook
 	  (lambda()
 	    (my/bindkey-recompile)
@@ -96,6 +97,24 @@
 
 ;; Dot / Graphviz
 (load-file "~/.emacs.d/site-lisp/graphviz-dot-mode.el")
+
+;; Go
+(eval-after-load 'go-mode
+  '(progn
+     (require 'go-autocomplete)
+     (define-key go-mode-map (kbd "M-i") 'ac-complete-go)))
+(add-hook 'go-mode-hook
+	  (lambda ()
+	    (setq tab-width 4)
+	    (setq gofmt-command "goimports")
+	    (add-hook 'before-save-hook 'gofmt-before-save)
+	    (my/bindkey-recompile)
+	    (set (make-local-variable 'compile-command)
+		 (format "go install '%s'"
+			 (file-relative-name
+			  (file-name-directory (buffer-file-name))
+			  (concat (file-name-as-directory (getenv "GOPATH"))
+				  "src"))))))
 
 ;; JavaScript
 (add-hook 'js2-mode-hook 'ac-js2-mode)
