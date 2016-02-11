@@ -176,6 +176,18 @@
 	    (require 'server)
 	    (unless (server-running-p) (server-start))))
 
+;; Rust
+(autoload 'rust-mode "rust-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+(add-hook 'rust-mode-hook
+	  (lambda ()
+	    (my/bindkey-recompile)
+	    (set (make-local-variable 'compile-command)
+		 (if (locate-dominating-file
+		      (file-name-directory (buffer-file-name)) "Cargo.toml")
+		     "cargo build"
+		   (format "rustc '%s'" (buffer-file-name))))))
+
 ;; Scala
 (add-hook 'scala-mode-hook
 	  (lambda()
