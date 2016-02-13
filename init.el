@@ -109,12 +109,15 @@
 	    (setq gofmt-command "goimports")
 	    (add-hook 'before-save-hook 'gofmt-before-save)
 	    (my/bindkey-recompile)
-	    (set (make-local-variable 'compile-command)
-		 (format "go install '%s'"
-			 (file-relative-name
-			  (file-name-directory (buffer-file-name))
-			  (concat (file-name-as-directory (getenv "GOPATH"))
-				  "src"))))))
+	    (let ((my/go-rel-pkg-dir
+		   (file-relative-name
+		    (file-name-directory (buffer-file-name))
+		    (concat (file-name-as-directory (getenv "GOPATH"))
+			    "src"))))
+	      (set (make-local-variable 'compile-command)
+		   (if (string-prefix-p ".." my/go-rel-pkg-dir)
+		       (format "go run '%s'" (buffer-file-name))
+		     (format "go install '%s'" my/go-rel-pkg-dir))))))
 
 ;; JavaScript
 (add-hook 'js2-mode-hook 'ac-js2-mode)
