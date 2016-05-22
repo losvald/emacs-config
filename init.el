@@ -13,6 +13,7 @@
 (load "~/.emacs.d/init-ac")
 ; use a separate file for Customize
 (setq custom-file "~/.emacs.d/custom.el")
+(unless (file-exists-p custom-file) (write-region "" nil custom-file))
 (load custom-file)
 
 (defun reload-dotemacs ()
