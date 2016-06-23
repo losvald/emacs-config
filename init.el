@@ -52,6 +52,8 @@
 
 (require 'unbound)
 
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
 ;; C/C++
 ; Set Google Style
 (require 'google-c-style)
@@ -164,6 +166,11 @@
         (setq tab-width 4)
         (setq python-indent 4)
         (ad-activate 'python-calculate-indentation)))
+
+(add-hook 'python-mode-hook
+	  (lambda()
+	    (define-key python-mode-map (kbd "M-n") 'flycheck-next-error)
+	    (define-key python-mode-map (kbd "M-p") 'flycheck-previous-error)))
 
 ;; R
 (autoload 'R-mode "ess-site.el" "" t)
