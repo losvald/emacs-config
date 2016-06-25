@@ -53,6 +53,9 @@
 (require 'unbound)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'flycheck-mode-hook
+	  (lambda()
+	    (setq flycheck-navigation-minimum-level (quote error))))
 
 ;; C/C++
 ; Set Google Style
