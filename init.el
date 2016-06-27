@@ -170,6 +170,10 @@
         (setq python-indent 4)
         (ad-activate 'python-calculate-indentation)))
 
+; use least two spaces before #
+(add-hook 'python-mode-hook
+	  (lambda () (set (make-local-variable 'comment-inline-offset) 2)))
+
 (add-hook 'python-mode-hook
 	  (lambda()
 	    (define-key python-mode-map (kbd "M-n") 'flycheck-next-error)
