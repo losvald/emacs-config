@@ -174,21 +174,15 @@
           (setq ad-return-value (current-indentation)))
       ad-do-it))))
 
-(add-hook 'python-mode-hook
-    (lambda ()
-        (my/bindkey-recompile)
-        (setq indent-tabs-mode nil)
-        (setq tab-width 4)
-        (setq python-indent 4)
-        (ad-activate 'python-calculate-indentation)))
-
-; use least two spaces before #
-(add-hook 'python-mode-hook
-	  (lambda () (set (make-local-variable 'comment-inline-offset) 2)))
-
 (add-hook
  'python-mode-hook
  (lambda ()
+   (set (make-local-variable 'comment-inline-offset) 2)  ; >=2 spaces before #
+   (setq
+    indent-tabs-mode nil
+    tab-width 4)
+   (ad-activate 'python-calculate-indentation)
+   (my/bindkey-recompile)
    (define-key python-mode-map (kbd "C-c C-d") 'python-shell-send-defun)
    (define-key python-mode-map (kbd "C-c C-h") 'python-shell-send-buffer)
    (define-key python-mode-map (kbd "M-n") 'flycheck-next-error)
