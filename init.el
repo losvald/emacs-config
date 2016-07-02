@@ -174,10 +174,13 @@
 (add-hook 'python-mode-hook
 	  (lambda () (set (make-local-variable 'comment-inline-offset) 2)))
 
-(add-hook 'python-mode-hook
-	  (lambda()
-	    (define-key python-mode-map (kbd "M-n") 'flycheck-next-error)
-	    (define-key python-mode-map (kbd "M-p") 'flycheck-previous-error)))
+(add-hook
+ 'python-mode-hook
+ (lambda ()
+   (define-key python-mode-map (kbd "C-c C-d") 'python-shell-send-defun)
+   (define-key python-mode-map (kbd "C-c C-h") 'python-shell-send-buffer)
+   (define-key python-mode-map (kbd "M-n") 'flycheck-next-error)
+   (define-key python-mode-map (kbd "M-p") 'flycheck-previous-error)))
 
 ;; R
 (autoload 'R-mode "ess-site.el" "" t)
