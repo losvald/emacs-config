@@ -212,6 +212,16 @@
 		   (format "rustc '%s'" (buffer-file-name))))))
 
 ;; Scala
+(add-to-list
+ 'auto-mode-alist
+ '("\\.scala\\'" . (lambda ()
+		     (unless (require 'scala-mode2 nil 'noerror)
+		       (warn "scala-mode2 not installed"))
+		     (unless (require 'sbt-mode nil 'noerror)
+		       (warn "SBT mode not installed"))
+		     (if (fboundp 'scala-mode) (scala-mode)
+		       (lwarn "emacs" :error "No scala-mode[2] installed")))))
+;; (eval-after-load 'scala-mode2 '(require 'sbt-mode))
 (add-hook 'scala-mode-hook
 	  (lambda()
 	    (define-key scala-mode-map
