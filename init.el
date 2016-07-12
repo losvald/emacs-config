@@ -126,6 +126,11 @@
 		     (format "go install '%s'" my/go-rel-pkg-dir))))))
 
 ;; JavaScript
+(add-to-list
+ 'auto-mode-alist
+ '("\\.js\\'" . (lambda ()
+		  (require 'ac-js2)
+		  (js2-mode))))
 (add-hook 'js2-mode-hook 'ac-js2-mode)
 
 ;; Markdown mode
