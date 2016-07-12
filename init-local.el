@@ -1,4 +1,4 @@
-(load "~/.emacs.d/init-auctex")
+(when (featurep 'tex-site) (load "~/.emacs.d/init-auctex"))
 
 (require 'python)
 
