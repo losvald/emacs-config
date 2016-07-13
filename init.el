@@ -1,4 +1,4 @@
-(load "~/.emacs.d/init-ui.el") ; init-ui must have has no dependencies
+(load "~/.emacs.d/init-ui.el")	   ; init-ui must have no dependencies
 
 (when (>= emacs-major-version 24)
   (require 'package)
@@ -50,6 +50,7 @@
       (isearch-repeat 'forward)
       (goto-char isearch-other-end))
 
+(require 'highlight)
 (require 'unbound)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
