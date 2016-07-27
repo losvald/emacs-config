@@ -68,6 +68,9 @@
 	    (my/bindkey-recompile)
 	    (c-set-offset 'inextern-lang 0)  ; don't indent "extern" blocks
 	    ))
+(add-hook 'c++-mode-hook
+	  (lambda ()
+	    (setq flycheck-gcc-language-standard "c++11")))
 (add-to-list 'auto-mode-alist
 	     '(".scratch\\.cpp" . (lambda () (load "~/.emacs.d/scratch-cpp"))))
 
