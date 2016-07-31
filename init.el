@@ -234,7 +234,7 @@
 (add-hook 'scala-mode-hook
 	  (lambda()
 	    (define-key scala-mode-map
-	      (kbd "C-c C-c") (lambda ()
+	      (kbd "C-c C-s") (lambda ()
 				(interactive)
 				(sbt-run-previous-command)))
 	    (define-key scala-mode-map
