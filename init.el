@@ -40,11 +40,16 @@
 ; always end a file with a newline
 
 (setq require-final-newline 'query)
-; delete trailing whitespace
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(defun my/delete-trailing-whitespace ()
+  "Calls delete-trailing-whitespace unless in certain major modes."
+  (unless (string= (with-current-buffer (current-buffer) major-mode)
+		   "markdown-mode")
+    (delete-trailing-whitespace)))
+(add-hook 'before-save-hook 'my/delete-trailing-whitespace)
+
 ; jump to the beginning of matched string in I-search when C-v is pressed
 (define-key isearch-mode-map (kbd "C-v") 'my-isearch-forward-to-beginning)
-    (defun my-isearch-forward-to-beginning ()
+(defun my-isearch-forward-to-beginning ()
       "Do a forward search and jump to the beginning of the search-term."
       (interactive)
       (isearch-repeat 'forward)
