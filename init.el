@@ -147,6 +147,12 @@
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-hook
+ 'markdown-mode-hook
+ (lambda ()
+   (setq ; auto-indentation uses tabs to align at tab stops but spaces otherwise
+    indent-tabs-mode nil ; always use spaces to avoid surprises/non-determinism
+    tab-width 4)))
 
 ;; Octave / Matlab
 (setq auto-mode-alist
