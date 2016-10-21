@@ -126,7 +126,10 @@
 	    (let ((my/go-rel-pkg-dir
 		   (file-relative-name
 		    (file-name-directory (buffer-file-name))
-		    (concat (file-name-as-directory (getenv "GOPATH"))
+		    (concat (file-name-as-directory
+			     ;; XXX: use last component in GOPATH (assume UNIX)
+			     (replace-regexp-in-string "^[^:]*:" ""
+						       (getenv "GOPATH")))
 			    "src"))))
 	      (set (make-local-variable 'compile-command)
 		   (if (string-prefix-p ".." my/go-rel-pkg-dir)
