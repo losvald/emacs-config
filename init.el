@@ -235,15 +235,15 @@
 		   (format "rustc '%s'" (buffer-file-name))))))
 
 ;; Scala
-(add-to-list
- 'auto-mode-alist
- '("\\.scala\\'" . (lambda ()
-		     (unless (require 'scala-mode2 nil 'noerror)
-		       (warn "scala-mode2 not installed"))
-		     (unless (require 'sbt-mode nil 'noerror)
-		       (warn "SBT mode not installed"))
-		     (if (fboundp 'scala-mode) (scala-mode)
-		       (lwarn "emacs" :error "No scala-mode[2] installed")))))
+(defun my/scala-mode-hook ()
+  (unless (require 'scala-mode2 nil 'noerror)
+    (warn "scala-mode2 not installed"))
+  (unless (require 'sbt-mode nil 'noerror)
+    (warn "SBT mode not installed"))
+  (if (fboundp 'scala-mode) (scala-mode)
+    (lwarn "emacs" :error "No scala-mode[2] installed")))
+(add-to-list 'auto-mode-alist '("\\.scala\\'" . my/scala-mode-hook))
+(add-to-list 'auto-mode-alist '("\\.sc\\'" . my/scala-mode-hook)) ; for amm
 ;; (eval-after-load 'scala-mode2 '(require 'sbt-mode))
 (add-hook 'scala-mode-hook
 	  (lambda()
@@ -259,7 +259,6 @@
 	      (kbd "C-c C-r") (lambda () (interactive) (sbt-command "run")))))
 (add-to-list 'display-buffer-alist	; reuse SBT compilation window
 	     '("^\\*sbt\\*" display-buffer-reuse-window (reusable-frames . t)))
-(add-to-list 'auto-mode-alist '("\\.sc\\'" . scala-mode)) ; for Ammonite scripts
 
 ;; SQL
 (eval-after-load "sql" '(load-library "sql-indent"))
