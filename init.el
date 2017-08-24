@@ -235,6 +235,10 @@
 		   (format "rustc '%s'" (buffer-file-name))))))
 
 ;; Scala
+(when (fboundp 'use-package)
+  (use-package ensime :ensure t :pin melpa)
+  (use-package sbt-mode :pin melpa)
+  (use-package scala-mode :pin melpa))
 (defun my/scala-mode-hook ()
   (unless (require 'sbt-mode nil 'noerror)
     (warn "SBT mode not installed"))
