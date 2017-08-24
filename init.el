@@ -236,8 +236,6 @@
 
 ;; Scala
 (defun my/scala-mode-hook ()
-  (unless (require 'scala-mode2 nil 'noerror)
-    (warn "scala-mode2 not installed"))
   (unless (require 'sbt-mode nil 'noerror)
     (warn "SBT mode not installed"))
   (if (fboundp 'scala-mode) (scala-mode)
