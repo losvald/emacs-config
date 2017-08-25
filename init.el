@@ -245,7 +245,16 @@
   (if (fboundp 'scala-mode) (scala-mode)
     (lwarn "emacs" :error "No scala-mode[2] installed")))
 (add-to-list 'auto-mode-alist '("\\.scala\\'" . my/scala-mode-hook))
-(add-to-list 'auto-mode-alist '("\\.sc\\'" . my/scala-mode-hook)) ; for amm
+(defun my/amm-mode-hook ()
+  (scala-mode)
+  (set (make-local-variable 'compile-command)
+       (concat "amm --predef-code "
+	       "'interp.colors() = ammonite.util.Colors.BlackWhite' "
+	       (buffer-file-name)))
+  (when (fboundp 'ensime-mode)
+    (define-key ensime-mode-map (kbd "C-c C-c") nil))
+  (define-key scala-mode-map (kbd "C-c C-c") 'recompile))
+(add-to-list 'auto-mode-alist '("\\.sc\\'" . my/amm-mode-hook)) ; for amm
 ;; (eval-after-load 'scala-mode2 '(require 'sbt-mode))
 (add-hook 'scala-mode-hook
 	  (lambda()
