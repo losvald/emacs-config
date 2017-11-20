@@ -5173,7 +5173,7 @@ Exclude menu-bar from KEYMAP."
 	(cond
 	 ((char-table-p elt)
 	  (map-char-table
-	   (lambda (key value) (aset elt key (table--replace-binding1 value)))
+	   (lambda (key value) (if (consp key) (set-char-table-range elt key (table--replace-binding1 value)) (aset elt key (table--replace-binding1 value))))
 	   elt))
 	 ((vectorp elt)
 	  (let ((i 0)
