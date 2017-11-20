@@ -4263,7 +4263,7 @@ converts a table into plain text without frames.  It is a companion to
   "Table cell version of `self-insert-command'."
   (interactive "*")
   (let ((table-inhibit-advice t)
-	(char (table--unibyte-char-to-multibyte last-command-char)))
+	(char (table--unibyte-char-to-multibyte last-command-event)))
     (if (eq buffer-undo-list t) nil
       (if (not (eq last-command this-command))
 	  (setq table-cell-self-insert-command-count 0)
