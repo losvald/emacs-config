@@ -19,14 +19,14 @@
 ;; Override default bindings for C-c C-n/p to navigate over yasnippet fields
 ;; when auto-completing; otherwise those bindings don't work for the 1st time
 (define-key ac-completing-map (kbd "C-c C-n")
-  (lexical-let ((command (key-binding (kbd "C-c C-n")))) ; remember command
+  (let* ((command (key-binding (kbd "C-c C-n")))) ; remember command
     '(lambda ()
        (interactive)
        (when (and yas--active-field-overlay
 		  (overlay-buffer yas--active-field-overlay))
 	 (yas-next-field)))))		; TODO invoke default command
 (define-key ac-completing-map (kbd "C-c C-p")
-  (lexical-let ((command (key-binding (kbd "C-c C-p")))) ; remember command
+  (let* ((command (key-binding (kbd "C-c C-p")))) ; remember command
     '(lambda ()
        (interactive)
        (when (and yas--active-field-overlay
